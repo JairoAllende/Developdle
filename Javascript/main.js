@@ -13,6 +13,10 @@ function crearCuadrados(fila){
     for (let i = 0; i < palabraAleatoria.length; i++) {
         let cuadrado = document.createElement("input");
         
+        if(i == 0){
+            cuadrado.setAttribute("autofocus", "true");
+        }
+
         cuadrado.setAttribute("maxlength", "1");
         cuadrado.classList.add("cuadrado");
         cuadrado.addEventListener("input", (event) => {
