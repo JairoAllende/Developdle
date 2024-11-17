@@ -11,8 +11,14 @@ function generarNumeroAleatorio (min , max){
 function crearCuadrados(fila){
     
     for (let i = 0; i < palabraAleatoria.length; i++) {
-        let cuadrado = document.createElement("input"); 
+        let cuadrado = document.createElement("input");
+        
+        cuadrado.setAttribute("maxlength", "1");
         cuadrado.classList.add("cuadrado");
+        cuadrado.addEventListener("input", (event) => {
+            event.target.value = event.target.value.toUpperCase();
+        })
+
         fila.appendChild(cuadrado);
     }
 }
@@ -20,6 +26,3 @@ function crearCuadrados(fila){
 Array.from(cuadricula.children).forEach((fila) => {
     crearCuadrados(fila);
 })
-
-
-

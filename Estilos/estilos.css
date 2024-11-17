@@ -32,10 +32,11 @@ h1{
 
 .cuadrado{
     border: 1px solid black;
-    width: 4em;
+    max-width: 4em;
     height: 4em;
     margin: 0 0.2em;
     border-radius: 5px;
+    text-align: center;
 }
 
 #teclado{
