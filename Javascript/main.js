@@ -1,5 +1,6 @@
 const PALABRAS = ["HTML", "CSS", "Javascript"];
 const cuadricula = document.getElementById("cuadricula");
+
 let palabraAleatoria = PALABRAS[generarNumeroAleatorio(0,PALABRAS.length - 1)];
 
 function generarNumeroAleatorio (min , max){
@@ -29,4 +30,14 @@ function crearCuadrados(fila){
 
 Array.from(cuadricula.children).forEach((fila) => {
     crearCuadrados(fila);
-})
+
+    const inputs = Array.from(fila.querySelectorAll("input"));
+
+    if (fila !== cuadricula.children[0]) {
+        
+        inputs.forEach((input) => {
+            input.setAttribute("readonly", "true");
+            input.classList.add("cuadrado-desactivado");
+        });
+    }
+});

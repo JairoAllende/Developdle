@@ -46,7 +46,10 @@ h1{
     border: none;    
 }
 
-
+.cuadrado-desactivado:focus{
+    outline: none;
+    border:1px solid rgb(224, 204, 255);
+}
 
 #teclado{
     display: flex;
