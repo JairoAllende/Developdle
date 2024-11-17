@@ -1,0 +1,74 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+h1{
+    display: flex;
+    justify-content: center;
+    padding-top: 1em;
+}
+
+#cuadricula{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5em;
+    width: 50%;
+    margin: auto;
+}
+
+.filas{
+    display: flex;
+}
+
+.cuadrado{
+    border: 1px solid black;
+    width: 4em;
+    height: 4em;
+    margin: 0 0.2em;
+    border-radius: 5px;
+}
+
+#teclado{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
+}
+
+.fila-botones {
+    display: flex;
+}
+
+
+.botones{
+    width: 4em;
+    height: 4.5em;
+    margin: 0.2em;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botones svg {
+    width: 1em;
+    height: 1em;
+}
+
+
+#boton-delete{
+    margin: auto;
+}
