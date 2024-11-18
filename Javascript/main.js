@@ -49,6 +49,22 @@ function insertarCuadrados(){
 
 insertarCuadrados();
 
+function restringirCaracteres(){
+    const cuadrados = document.querySelectorAll(".cuadrado");
+    
+    cuadrados.forEach((cuadrado) => {
+        cuadrado.addEventListener("input", (cambiarCuadrado) => {
+            const cuadradoActual = cambiarCuadrado.target;
+            if(cuadradoActual.value.charCodeAt(0) < 65 || cuadradoActual.value.charCodeAt(0) > 90){
+                cuadradoActual.value = "";
+            }
+        })
+     
+    })
+}
+
+restringirCaracteres();
+
 function cambiarDeCuadrado(){
     const cuadrados = document.querySelectorAll(".cuadrado");
 
@@ -62,6 +78,7 @@ function cambiarDeCuadrado(){
                 if(indiceActual > -1 && cuadrados.length -1){
                     Array.from(cuadrados)[indiceActual + 1].focus();
                 }
+
             }
         })
         
@@ -71,19 +88,17 @@ function cambiarDeCuadrado(){
 function retrosederCuadrados(){
     const cuadrados = document.querySelectorAll(".cuadrado");
 
-    cuadrados.forEach((cuadrado) => {
-        cuadrado.addEventListener("input", (cambiarCuadrado) => {
-            const cuadradoActual = cambiarCuadrado.target;
-            
-            if(cuadradoActual.value == ""){
-                const indiceActual = Array.from(cuadrados).indexOf(cuadradoActual);
+    cuadrados.forEach((cuadrado) =>{
+        cuadrado.addEventListener("keydown", (event) =>{
+            if(event.key === "Backspace" && !cuadrado.value){
 
-                if(indiceActual > -1 && cuadrados.length -1){
-                    Array.from(cuadrados)[indiceActual - 1].focus();
+                const indiceActual = Array.from(cuadrados).indexOf(cuadrado);
+
+                if(indiceActual > 0){
+                    cuadrados[indiceActual - 1].focus();
                 }
             }
         })
-        
     })
 }
 
