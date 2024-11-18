@@ -39,6 +39,7 @@ h1{
     text-align: center;
     cursor: pointer;
     caret-color: transparent;
+    font-weight: 900;
 }
 
 .cuadrado:focus{

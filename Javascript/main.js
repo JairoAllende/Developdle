@@ -11,7 +11,6 @@ function generarNumeroAleatorio (min , max){
 }
 
 function crearCuadrados(fila){
-    
     for (let i = 0; i < palabraAleatoria.length; i++) {
         let cuadrado = document.createElement("input");
         
@@ -57,7 +56,6 @@ function cambiarDeCuadrado(){
         cuadrado.addEventListener("input", (cambiarCuadrado) => {
             const cuadradoActual = cambiarCuadrado.target;
             
-
             if(cuadradoActual.value !== ""){
                 const indiceActual = Array.from(cuadrados).indexOf(cuadradoActual);
 
@@ -70,4 +68,24 @@ function cambiarDeCuadrado(){
     })
 }
 
+function retrosederCuadrados(){
+    const cuadrados = document.querySelectorAll(".cuadrado");
+
+    cuadrados.forEach((cuadrado) => {
+        cuadrado.addEventListener("input", (cambiarCuadrado) => {
+            const cuadradoActual = cambiarCuadrado.target;
+            
+            if(cuadradoActual.value == ""){
+                const indiceActual = Array.from(cuadrados).indexOf(cuadradoActual);
+
+                if(indiceActual > -1 && cuadrados.length -1){
+                    Array.from(cuadrados)[indiceActual - 1].focus();
+                }
+            }
+        })
+        
+    })
+}
+
 cambiarDeCuadrado();
+retrosederCuadrados();
