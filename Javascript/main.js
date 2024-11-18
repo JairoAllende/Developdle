@@ -104,3 +104,22 @@ function retrosederCuadrados(){
 
 cambiarDeCuadrado();
 retrosederCuadrados();
+
+function manejarTeclado(){ //Event Delegation
+    const teclado = document.querySelector("#teclado");
+
+    console.log(teclado);
+    teclado.addEventListener("click", (event) => {
+        if(event.target.tagName === "BUTTON"){
+            console.log(event.target.innerText);
+            return event.target.innerText;
+        }
+    })
+}
+
+manejarTeclado();
+console.log(manejarTeclado())
+
+Array.from(document.getElementsByClassName("filas").children).forEach(cuadrado => {
+    cuadrado.addEventListener
+});
