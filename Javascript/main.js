@@ -4,6 +4,8 @@ const filasDeCuadricula = Array.from(cuadricula.children);
 
 let palabraAleatoria = PALABRAS[generarNumeroAleatorio(0,PALABRAS.length - 1)];
 
+let ultimoInputActivo = null;
+
 function generarNumeroAleatorio (min , max){
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -105,21 +107,48 @@ function retrosederCuadrados(){
 cambiarDeCuadrado();
 retrosederCuadrados();
 
-function manejarTeclado(){ //Event Delegation
+document.querySelectorAll(".cuadrado").forEach((cuadrado) => {
+    cuadrado.addEventListener("focus", (event) => {
+        ultimoInputActivo = event.target;
+    });
+});
+
+function manejarTecladoVirtual() {
     const teclado = document.querySelector("#teclado");
 
-    console.log(teclado);
     teclado.addEventListener("click", (event) => {
-        if(event.target.tagName === "BUTTON"){
-            console.log(event.target.innerText);
-            return event.target.innerText;
+        if (event.target.tagName === "BUTTON") {
+            event.preventDefault();
+            const letra = event.target.innerText; 
+
+            if (ultimoInputActivo) {
+                ultimoInputActivo.value = letra;
+
+                const cuadrados = Array.from(document.querySelectorAll(".cuadrado"));
+                const indiceActual = cuadrados.indexOf(ultimoInputActivo);
+
+                if (indiceActual > -1 && indiceActual < cuadrados.length - 1) {
+                    cuadrados[indiceActual + 1].focus();
+                }
+            }
         }
-    })
+    });
 }
 
-manejarTeclado();
-console.log(manejarTeclado())
+manejarTecladoVirtual();
 
-Array.from(document.getElementsByClassName("filas").children).forEach(cuadrado => {
-    cuadrado.addEventListener
-});
+// document.addEventListener("keydown", (event) => {
+//     console.log("Tecla presionada:", event.key); // La tecla presionada, e.g., "Enter"
+//     console.log("Código de la tecla:", event.code); // Código físico de la tecla, e.g., "Space"
+
+//     if (event.key === " ") {
+//         console.log("Se presionó la barra espaciadora");
+//     } else if (event.key === "Backspace") {
+//         console.log("Se presionó la tecla Borrar");
+//     } else if (event.key === "Enter") {
+//         console.log("Se presionó la tecla Enter");
+//     } else if (event.key === "Shift") {
+//         console.log("Se presionó la tecla Mayúsculas");
+//     }
+// });
+
