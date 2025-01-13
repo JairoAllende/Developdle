@@ -115,6 +115,8 @@ document.querySelectorAll(".cuadrado").forEach((cuadrado) => {
 
 function manejarTecladoVirtual() {
     const teclado = document.querySelector("#teclado");
+    const botonEnter = document.getElementById("boton-enter");
+    const botonDelete = document.getElementById("boton-delete");
 
     teclado.addEventListener("click", (event) => {
         if (event.target.tagName === "BUTTON") {
@@ -133,6 +135,28 @@ function manejarTecladoVirtual() {
             }
         }
     });
+
+    botonEnter.addEventListener("click", () => {
+        const eventoTecladoEnter = new KeyboardEvent("keydown", {
+            key: "Enter",
+            code: "Enter",
+            keycode: 13,
+            bubbles: true
+        });
+
+        cuadricula.dispatchEvent(eventoTecladoEnter);
+    })
+
+    botonDelete.addEventListener("click", () => {
+        const eventoTecladoDelete = new KeyboardEvent("keydown", {
+            key: "Backspace",
+            code: "Backspace",
+            keycode: 8,
+            bubbles: true
+        });
+
+        cuadricula.dispatchEvent(eventoTecladoDelete);
+    })
 }
 
 manejarTecladoVirtual();
