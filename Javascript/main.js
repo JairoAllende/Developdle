@@ -115,51 +115,39 @@ document.querySelectorAll(".cuadrado").forEach((cuadrado) => {
 
 function manejarTecladoVirtual() {
     const teclado = document.querySelector("#teclado");
-    const botonEnter = document.getElementById("boton-enter");
-    const botonDelete = document.getElementById("boton-delete");
+    const cuadrados = Array.from(document.querySelectorAll(".cuadrado"));
 
     teclado.addEventListener("click", (event) => {
-        if (event.target.tagName === "BUTTON") {
+        if(event.target.tagName === "BUTTON" && event.target.id !== "boton-delete" && event.target.id !== "boton-enter") {
             event.preventDefault();
             const letra = event.target.innerText; 
 
             if (ultimoInputActivo) {
                 ultimoInputActivo.value = letra;
 
-                const cuadrados = Array.from(document.querySelectorAll(".cuadrado"));
                 const indiceActual = cuadrados.indexOf(ultimoInputActivo);
 
                 if (indiceActual > -1 && indiceActual < cuadrados.length - 1) {
                     cuadrados[indiceActual + 1].focus();
                 }
             }
+        }else if(event.target.id === "boton-delete" && ultimoInputActivo.value === ""){   
+            const indiceActual = cuadrados.indexOf(ultimoInputActivo);
+
+            if(indiceActual > 0 && indiceActual < cuadrados.length -1){
+                cuadrados[indiceActual - 1].focus();
+                ultimoInputActivo.value = "";
+            }else if(indiceActual === 0){
+                cuadrados[indiceActual].focus();
+            }
         }
     });
 
-    botonEnter.addEventListener("click", () => {
-        const eventoTecladoEnter = new KeyboardEvent("keydown", {
-            key: "Enter",
-            code: "Enter",
-            keycode: 13,
-            bubbles: true
-        });
-
-        cuadricula.dispatchEvent(eventoTecladoEnter);
-    })
-
-    botonDelete.addEventListener("click", () => {
-        const eventoTecladoDelete = new KeyboardEvent("keydown", {
-            key: "Backspace",
-            code: "Backspace",
-            keycode: 8,
-            bubbles: true
-        });
-
-        cuadricula.dispatchEvent(eventoTecladoDelete);
-    })
+    
 }
 
 manejarTecladoVirtual();
+
 
 // document.addEventListener("keydown", (event) => {
 //     console.log("Tecla presionada:", event.key); // La tecla presionada, e.g., "Enter"
