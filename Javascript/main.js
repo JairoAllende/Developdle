@@ -1,4 +1,4 @@
-const PALABRAS = ["HTML", "CSS", "Javascript"];
+const PALABRAS = ["HTML", "CSS", "JAVASCRIPT"];
 const cuadricula = document.getElementById("cuadricula");
 const filasDeCuadricula = Array.from(cuadricula.children);
 
@@ -116,13 +116,13 @@ document.querySelectorAll(".cuadrado").forEach((cuadrado) => {
 function manejarTecladoVirtual() {
     const teclado = document.querySelector("#teclado");
     const cuadrados = Array.from(document.querySelectorAll(".cuadrado"));
-
+    
     teclado.addEventListener("click", (event) => {
         if(event.target.tagName === "BUTTON" && event.target.id !== "boton-delete" && event.target.id !== "boton-enter") {
             event.preventDefault();
             const letra = event.target.innerText; 
 
-            if (ultimoInputActivo) {
+            if (ultimoInputActivo && !ultimoInputActivo.hasAttribute("readonly")) {
                 ultimoInputActivo.value = letra;
 
                 const indiceActual = cuadrados.indexOf(ultimoInputActivo);
@@ -142,25 +142,17 @@ function manejarTecladoVirtual() {
             }
         }
     });
-
-    
 }
 
 manejarTecladoVirtual();
 
+function verificarPalabra(palabraActual){
+    Array.from(palabraActual).forEach((letra) => {
+        console.log(letra);
+    })
+    
+    
+}
 
-// document.addEventListener("keydown", (event) => {
-//     console.log("Tecla presionada:", event.key); // La tecla presionada, e.g., "Enter"
-//     console.log("Código de la tecla:", event.code); // Código físico de la tecla, e.g., "Space"
-
-//     if (event.key === " ") {
-//         console.log("Se presionó la barra espaciadora");
-//     } else if (event.key === "Backspace") {
-//         console.log("Se presionó la tecla Borrar");
-//     } else if (event.key === "Enter") {
-//         console.log("Se presionó la tecla Enter");
-//     } else if (event.key === "Shift") {
-//         console.log("Se presionó la tecla Mayúsculas");
-//     }
-// });
+verificarPalabra(palabraAleatoria);
 
