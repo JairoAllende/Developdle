@@ -30,8 +30,8 @@ function crearCuadrados(fila){
     }
 }
 
-function desactivarFilas(inputs,fila){
-    if (fila !== cuadricula.children[0]) {
+function desactivarFilasInicio(inputs,fila){
+    if (fila !== filasDeCuadricula[0]) {
             
         inputs.forEach((input) => {
             input.setAttribute("readonly", "true");
@@ -45,7 +45,7 @@ function insertarCuadrados(){
         crearCuadrados(fila);
     
         const inputs = Array.from(fila.querySelectorAll("input"));
-        desactivarFilas(inputs, fila);
+        desactivarFilasInicio(inputs, fila);
     });
 }
 
@@ -140,19 +140,45 @@ function manejarTecladoVirtual() {
             }else if(indiceActual === 0){
                 cuadrados[indiceActual].focus();
             }
+        }else if(event.target.id === "boton-enter"){
+            console.log("Llamamos a la funcion verificar")
         }
     });
 }
 
 manejarTecladoVirtual();
 
-function verificarPalabra(palabraActual){
-    Array.from(palabraActual).forEach((letra) => {
-        console.log(letra);
+function botonConfirmar(){
+    window.addEventListener("keydown", (e) => {
+        if(e.key === "Enter"){
+            console.log("Gola")
+        }
     })
-    
-    
 }
 
-verificarPalabra(palabraAleatoria);
+botonConfirmar();
 
+// function verificarPalabra(palabraActual){
+//     let letrasDePalabraActual = Array.from(palabraActual);
+//     letrasDePalabraActual.forEach((letra) => {
+//         console.log(letra);
+//     })
+    
+//     const cuadrados = document.querySelectorAll(".cuadrado");
+//     cuadrados.forEach((cuadrado) => {
+//         cuadrado.addEventListener("input", () => {
+//            console.log(cuadrado.value) 
+//         })
+//     })
+
+//     for (let i = 0; i < letrasDePalabraActual.length; i++) {
+//         let letraDeLaPalabra = letrasDePalabraActual[i]
+//         let letraDeLaCuadricula = cuadrados[i];
+        
+//         if(letraDeLaPalabra != null){
+//             console.log("la letra coincide")
+//         }
+//     }
+// }
+
+// verificarPalabra(palabraAleatoria);
