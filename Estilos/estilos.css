@@ -30,6 +30,8 @@ h1{
     display: flex;
 }
 
+
+
 .cuadrado{
     border: 1px solid rgb(224, 204, 255);
     max-width: 4em;

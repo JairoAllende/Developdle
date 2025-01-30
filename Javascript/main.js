@@ -1,6 +1,7 @@
 const PALABRAS = ["HTML", "CSS", "JAVASCRIPT"];
 const cuadricula = document.getElementById("cuadricula");
 const filasDeCuadricula = Array.from(cuadricula.children);
+let contador = 0;
 
 let palabraAleatoria = PALABRAS[generarNumeroAleatorio(0,PALABRAS.length - 1)];
 
@@ -45,6 +46,7 @@ function insertarCuadrados(){
         crearCuadrados(fila);
     
         const inputs = Array.from(fila.querySelectorAll("input"));
+
         desactivarFilasInicio(inputs, fila);
     });
 }
@@ -77,7 +79,7 @@ function cambiarDeCuadrado(){
             if(cuadradoActual.value !== ""){
                 const indiceActual = Array.from(cuadrados).indexOf(cuadradoActual);
 
-                if(indiceActual > -1 && cuadrados.length -1){
+                if(indiceActual > -1 &&  indiceActual < cuadrados.length -1){
                     Array.from(cuadrados)[indiceActual + 1].focus();
                 }
 
@@ -93,7 +95,6 @@ function retrosederCuadrados(){
     cuadrados.forEach((cuadrado) =>{
         cuadrado.addEventListener("keydown", (event) =>{
             if(event.key === "Backspace" && !cuadrado.value){
-
                 const indiceActual = Array.from(cuadrados).indexOf(cuadrado);
 
                 if(indiceActual > 0){
@@ -113,6 +114,40 @@ document.querySelectorAll(".cuadrado").forEach((cuadrado) => {
     });
 });
 
+function botonConfirmar(){
+    window.addEventListener("keydown", (e) => {
+        if(e.key === "Enter"){
+    
+            if(filasDeCuadricula[contador]){
+                habilitarFilas();
+            }
+        }
+    })
+}
+
+function habilitarFilas(){
+    let filaActual = Array.from(filasDeCuadricula[contador].children);
+    let filaSiguiente = null;
+
+    filaActual.forEach((input) => {
+        input.setAttribute("readonly", "true"); 
+        input.classList.add("cuadrado-desactivado");
+    })
+
+    if(contador < filasDeCuadricula.length && contador != filasDeCuadricula.length - 1){
+        filaSiguiente = Array.from(filasDeCuadricula[contador + 1].children);
+
+        filaSiguiente.forEach((input) => {
+            input.removeAttribute("readonly", "true");
+            input.classList.remove("cuadrado-desactivado");
+        })
+    }
+
+    let valoresFila = filaActual.map(input => input.value);
+    console.log("Valores de la fila:", valoresFila);
+    contador++;
+}
+
 function manejarTecladoVirtual() {
     const teclado = document.querySelector("#teclado");
     const cuadrados = Array.from(document.querySelectorAll(".cuadrado"));
@@ -124,7 +159,6 @@ function manejarTecladoVirtual() {
 
             if (ultimoInputActivo && !ultimoInputActivo.hasAttribute("readonly")) {
                 ultimoInputActivo.value = letra;
-
                 const indiceActual = cuadrados.indexOf(ultimoInputActivo);
 
                 if (indiceActual > -1 && indiceActual < cuadrados.length - 1) {
@@ -141,44 +175,13 @@ function manejarTecladoVirtual() {
                 cuadrados[indiceActual].focus();
             }
         }else if(event.target.id === "boton-enter"){
-            console.log("Llamamos a la funcion verificar")
+            if(filasDeCuadricula[contador]){  
+                habilitarFilas();
+            }
+            console.log("HOLA");
         }
     });
 }
 
 manejarTecladoVirtual();
-
-function botonConfirmar(){
-    window.addEventListener("keydown", (e) => {
-        if(e.key === "Enter"){
-            console.log("Gola")
-        }
-    })
-}
-
 botonConfirmar();
-
-// function verificarPalabra(palabraActual){
-//     let letrasDePalabraActual = Array.from(palabraActual);
-//     letrasDePalabraActual.forEach((letra) => {
-//         console.log(letra);
-//     })
-    
-//     const cuadrados = document.querySelectorAll(".cuadrado");
-//     cuadrados.forEach((cuadrado) => {
-//         cuadrado.addEventListener("input", () => {
-//            console.log(cuadrado.value) 
-//         })
-//     })
-
-//     for (let i = 0; i < letrasDePalabraActual.length; i++) {
-//         let letraDeLaPalabra = letrasDePalabraActual[i]
-//         let letraDeLaCuadricula = cuadrados[i];
-        
-//         if(letraDeLaPalabra != null){
-//             console.log("la letra coincide")
-//         }
-//     }
-// }
-
-// verificarPalabra(palabraAleatoria);
