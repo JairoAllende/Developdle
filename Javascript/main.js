@@ -114,25 +114,28 @@ document.querySelectorAll(".cuadrado").forEach((cuadrado) => {
     });
 });
 
-function botonConfirmar(){
-    window.addEventListener("keydown", (e) => {
-        if(e.key === "Enter"){
-    
-            if(filasDeCuadricula[contador]){
-                habilitarFilas();
-            }
-        }
-    })
-}
-
 function habilitarFilas(){
     let filaActual = Array.from(filasDeCuadricula[contador].children);
     let filaSiguiente = null;
+    let palabraActual = Array.from(palabraAleatoria);
+
+    console.log(palabraActual);
 
     if(filaActual.length === filaActual.filter((elem) => elem.value != "").length){
         filaActual.forEach((input) => {
             input.setAttribute("readonly", "true"); 
             input.classList.add("cuadrado-desactivado");
+
+            filaActual.forEach((letra, indice) => {
+                console.log(letra.value);
+                if(letra.value === palabraActual[indice]){
+                    console.log("Verde");
+                }else if(palabraActual.includes(letra.value)){
+                    console.log("Amarillo");
+                }else{
+                    console.log("Rojo")
+                }
+            })
         })
     
         if(contador < filasDeCuadricula.length && contador != filasDeCuadricula.length - 1){
@@ -143,11 +146,19 @@ function habilitarFilas(){
                 input.classList.remove("cuadrado-desactivado");
             })
         }
-    
-        let valoresFila = filaActual.map(input => input.value);
-        console.log("Valores de la fila:", valoresFila);
         contador++;
     }
+}
+
+function botonConfirmar(){
+    window.addEventListener("keydown", (e) => {
+        if(e.key === "Enter"){
+    
+            if(filasDeCuadricula[contador]){
+                habilitarFilas();
+            }
+        }
+    })
 }
 
 function manejarTecladoVirtual() {
@@ -180,7 +191,6 @@ function manejarTecladoVirtual() {
             if(filasDeCuadricula[contador]){  
                 habilitarFilas();
             }
-            console.log("HOLA");
         }
     });
 }
