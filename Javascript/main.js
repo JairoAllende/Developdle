@@ -129,23 +129,25 @@ function habilitarFilas(){
     let filaActual = Array.from(filasDeCuadricula[contador].children);
     let filaSiguiente = null;
 
-    filaActual.forEach((input) => {
-        input.setAttribute("readonly", "true"); 
-        input.classList.add("cuadrado-desactivado");
-    })
-
-    if(contador < filasDeCuadricula.length && contador != filasDeCuadricula.length - 1){
-        filaSiguiente = Array.from(filasDeCuadricula[contador + 1].children);
-
-        filaSiguiente.forEach((input) => {
-            input.removeAttribute("readonly", "true");
-            input.classList.remove("cuadrado-desactivado");
+    if(filaActual.length === filaActual.filter((elem) => elem.value != "").length){
+        filaActual.forEach((input) => {
+            input.setAttribute("readonly", "true"); 
+            input.classList.add("cuadrado-desactivado");
         })
+    
+        if(contador < filasDeCuadricula.length && contador != filasDeCuadricula.length - 1){
+            filaSiguiente = Array.from(filasDeCuadricula[contador + 1].children);
+    
+            filaSiguiente.forEach((input) => {
+                input.removeAttribute("readonly", "true");
+                input.classList.remove("cuadrado-desactivado");
+            })
+        }
+    
+        let valoresFila = filaActual.map(input => input.value);
+        console.log("Valores de la fila:", valoresFila);
+        contador++;
     }
-
-    let valoresFila = filaActual.map(input => input.value);
-    console.log("Valores de la fila:", valoresFila);
-    contador++;
 }
 
 function manejarTecladoVirtual() {
