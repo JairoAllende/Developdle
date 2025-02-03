@@ -118,24 +118,44 @@ function verificarLetras(filaActual, palabraActual){
     filaActual.forEach((letra, indice) => {
         console.log(letra.value);
         if(letra.value === palabraActual[indice]){
-            console.log("Verde");
             filaActual[indice].classList.add("cuadrado-verde");
         }else if(palabraActual.includes(letra.value)){
-            console.log("Amarillo");
             filaActual[indice].classList.add("cuadrado-amarillo");
         }else{
-            console.log("Rojo");
             filaActual[indice].classList.add("cuadrado-gris");
         }
     })
+}
+
+function palabraEncontrada(filaActual, palabraActual) {
+    let letrasCorrectas = 0;
+
+    filaActual.forEach((letra, indice) => {
+        if (letra.value === palabraActual[indice]) {
+            letrasCorrectas++;
+        }
+    });
+
+    if(letrasCorrectas === palabraActual.length) {
+        filasDeCuadricula.forEach((input) => {
+            input.setAttribute("readonly", "true");
+            input.classList.add("cuadrado-desactivado");
+        });
+
+        alert("Bien Ahí");
+        return true;
+    }
+
+    return false;
 }
 
 function habilitarFilas(){
     let filaActual = Array.from(filasDeCuadricula[contador].children);
     let filaSiguiente = null;
     let palabraActual = Array.from(palabraAleatoria);
-
+    
     console.log(filaActual);
+    let palabraEsCorrecta = palabraEncontrada(filaActual, palabraActual);
 
     if(filaActual.length === filaActual.filter((elem) => elem.value != "").length){
         filaActual.forEach((input) => {
@@ -145,13 +165,16 @@ function habilitarFilas(){
             verificarLetras(filaActual, palabraActual);
         })
     
-        if(contador < filasDeCuadricula.length && contador != filasDeCuadricula.length - 1){
+        if(contador < filasDeCuadricula.length && contador != filasDeCuadricula.length - 1 && palabraEsCorrecta == false){
             filaSiguiente = Array.from(filasDeCuadricula[contador + 1].children);
     
-            filaSiguiente.forEach((input) => {
-                input.removeAttribute("readonly", "true");
-                input.classList.remove("cuadrado-desactivado");
-            })
+            if(filaSiguiente){
+                filaSiguiente.forEach((input) => {
+                    input.removeAttribute("readonly", "true");
+                    input.classList.remove("cuadrado-desactivado");
+                })
+            }
+            
         }
         contador++;
     }
