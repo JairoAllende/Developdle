@@ -114,28 +114,35 @@ document.querySelectorAll(".cuadrado").forEach((cuadrado) => {
     });
 });
 
+function verificarLetras(filaActual, palabraActual){
+    filaActual.forEach((letra, indice) => {
+        console.log(letra.value);
+        if(letra.value === palabraActual[indice]){
+            console.log("Verde");
+            filaActual[indice].classList.add("cuadrado-verde");
+        }else if(palabraActual.includes(letra.value)){
+            console.log("Amarillo");
+            filaActual[indice].classList.add("cuadrado-amarillo");
+        }else{
+            console.log("Rojo");
+            filaActual[indice].classList.add("cuadrado-gris");
+        }
+    })
+}
+
 function habilitarFilas(){
     let filaActual = Array.from(filasDeCuadricula[contador].children);
     let filaSiguiente = null;
     let palabraActual = Array.from(palabraAleatoria);
 
-    console.log(palabraActual);
+    console.log(filaActual);
 
     if(filaActual.length === filaActual.filter((elem) => elem.value != "").length){
         filaActual.forEach((input) => {
             input.setAttribute("readonly", "true"); 
             input.classList.add("cuadrado-desactivado");
 
-            filaActual.forEach((letra, indice) => {
-                console.log(letra.value);
-                if(letra.value === palabraActual[indice]){
-                    console.log("Verde");
-                }else if(palabraActual.includes(letra.value)){
-                    console.log("Amarillo");
-                }else{
-                    console.log("Rojo")
-                }
-            })
+            verificarLetras(filaActual, palabraActual);
         })
     
         if(contador < filasDeCuadricula.length && contador != filasDeCuadricula.length - 1){
