@@ -57,7 +57,7 @@ h1{
 }
 
 .cuadrado-verde{
-    background-color: #43a047;
+    background-color: #43a047 !important;
     color: #fff;
 }
 
@@ -67,7 +67,7 @@ h1{
 }
 
 .cuadrado-amarillo{
-    background-color: #e4a81d;
+    background-color: #e4a81d !important;
     color: #fff;
 }
 
@@ -81,7 +81,6 @@ h1{
 .fila-botones {
     display: flex;
 }
-
 
 .botones{
     width: 4em;
