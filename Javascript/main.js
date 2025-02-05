@@ -114,30 +114,37 @@ document.querySelectorAll(".cuadrado").forEach((cuadrado) => {
     });
 });
 
-function verificarLetras(filaActual, palabraActual){
+function verificarLetras(filaActual, palabraActual) {
     const botonesTeclado = document.querySelectorAll(".botones");
     console.log(botonesTeclado[0].textContent);
 
     filaActual.forEach((letra, indice) => {
         console.log(letra.value);
-        if(letra.value === palabraActual[indice]){
+        
+        if(letra.value === palabraActual[indice]) {
             filaActual[indice].classList.add("cuadrado-verde");
-            botonesTeclado.forEach((boton) => {//////
-                if(boton.textContent === letra.value){////
-                    boton.classList.add("cuadrado-verde");
+            botonesTeclado.forEach((boton) => {
+                if(boton.textContent === letra.value){
+                    boton.classList.remove("cuadrado-amarillo");
+                    boton.classList.add("cuadrado-verde"); 
                 }
-            })
-        }else if(palabraActual.includes(letra.value)){
+            });
+        }else if(palabraActual.includes(letra.value)) {
             filaActual[indice].classList.add("cuadrado-amarillo");
             botonesTeclado.forEach((boton) => {
-                if(boton.textContent === letra.value){////
-                    boton.classList.add("cuadrado-amarillo");////
+                if(boton.textContent === letra.value && !boton.classList.contains("cuadrado-verde")) {
+                    boton.classList.add("cuadrado-amarillo");
                 }
-            })
+            });
         }else{
             filaActual[indice].classList.add("cuadrado-gris");
+            botonesTeclado.forEach((boton) => {
+                if(boton.textContent === letra.value){
+                    boton.classList.add("cuadrado-gris");
+                }
+            });
         }
-    })
+    });
 }
 
 function palabraEncontrada(filaActual, palabraActual) {

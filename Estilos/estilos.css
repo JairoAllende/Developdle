@@ -62,7 +62,7 @@ h1{
 }
 
 .cuadrado-gris{
-    background-color: #757575;
+    background-color: #757575 !important;
     color: #fff;
 }
 
