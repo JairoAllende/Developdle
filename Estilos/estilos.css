@@ -2,12 +2,15 @@
     margin: 0;
     box-sizing: border-box;
     font-family: "Roboto", sans-serif;
+    scrollbar-width: none;
 }
 
 body{
     min-height: 100vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -28,6 +31,7 @@ h1{
 
 .filas{
     display: flex;
+    justify-content: center;
 }
 
 .cuadrado{
@@ -76,6 +80,7 @@ h1{
     flex-direction: column;
     align-items: center;
     padding: 1em;
+    flex-wrap: wrap;
 }
 
 .fila-botones {
@@ -83,8 +88,8 @@ h1{
 }
 
 .botones{
-    width: 4em;
-    height: 4.5em;
+    width: 3em;
+    height: 3.5em;
     margin: 0.2em;
     font-size: 1em;
     border-radius: 5px;
@@ -107,4 +112,64 @@ h1{
 
 #boton-delete{
     margin: auto;
+}
+
+@media (width < 590px){
+    .cuadrado{
+        width: 3em;
+        height: 3em;
+        margin: 0.3em 0.2em;
+    }
+    
+    .botones{
+        width: 2em;
+        height: 2.5em;
+    }
+}
+
+@media (width < 450px){
+    .cuadrado{
+        width: 2.5em;
+        height: 2.5em;
+        margin: 0.3em 0.2em;
+    }
+
+    .botones{
+        margin: 0.1em;
+    }
+}
+
+@media (width < 385px){
+    #cuadricula{
+        margin: none;
+    }
+
+    .cuadrado{
+        width: 1.9em;
+        height: 1.9em;
+        margin: 0.3em 0.2em;
+    }
+    
+    .botones{
+        width: 1.5em;
+        height: 2em;
+    }
+}
+
+@media (max-height: 500px) {
+    h1{
+        font-size: 1.2em;
+    }
+    
+    .cuadrado{
+        width: 1.5em;
+        height: 1.5em;
+        margin: 0.3em 0.2em;
+    }
+    
+    .botones {
+        width: 1.8em;
+        height: 2.3em;
+        font-size: 0.7em;
+    }
 }

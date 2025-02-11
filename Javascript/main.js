@@ -1,4 +1,4 @@
-const PALABRAS = ["HTML", "CSS", "JAVASCRIPT"];
+const PALABRAS = ["HTML", "CSS", "JAVASCRIPT", "JAVA", "REACT"];
 const cuadricula = document.getElementById("cuadricula");
 const filasDeCuadricula = Array.from(cuadricula.children);
 let contador = 0;
