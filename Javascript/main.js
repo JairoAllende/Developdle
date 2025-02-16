@@ -2,10 +2,10 @@ const PALABRAS = ["HTML", "CSS", "JAVASCRIPT", "JAVA", "REACT"];
 const cuadricula = document.getElementById("cuadricula");
 const filasDeCuadricula = Array.from(cuadricula.children);
 let contador = 0;
-
 let palabraAleatoria = PALABRAS[generarNumeroAleatorio(0,PALABRAS.length - 1)];
-
 let ultimoInputActivo = null;
+let botonContinuar = null;
+let cartel = null; 
 
 function generarNumeroAleatorio (min , max){
     min = Math.ceil(min);
@@ -147,6 +147,55 @@ function verificarLetras(filaActual, palabraActual) {
     });
 }
 
+function crearCartel(){
+   cartel = document.createElement("div");
+   cartel.classList.add("cartel");
+
+   const contenedorMensaje = document.createElement("div");
+   const mensaje = document.createElement("h3");
+   contenedorMensaje.appendChild(mensaje);
+   mensaje.textContent = "Capo!";
+   cartel.appendChild(contenedorMensaje);
+
+   const emote = document.createTextNode("👌");
+   contenedorMensaje.appendChild(emote);
+
+   const contenedorPuntaje = document.createElement("div");
+   const puntajeActual = document.createElement("h3");
+   puntajeActual.textContent = "+ X puntos";
+   contenedorPuntaje.appendChild(puntajeActual);
+   cartel.appendChild(contenedorPuntaje);
+
+   const puntajeTotal = document.createElement("h3");
+   puntajeTotal.textContent = "Puntaje total: ";
+   contenedorPuntaje.appendChild(puntajeTotal);
+
+   botonContinuar = document.createElement("button");
+   botonContinuar.classList.add("boton-cartel");
+   botonContinuar.textContent = "Continuar";
+   cartel.appendChild(botonContinuar);
+
+   document.body.appendChild(cartel); 
+}
+
+function reiniciarJuego(){
+    botonContinuar.addEventListener("click", (e)=>{
+        if(e.target){
+            cuadricula.style.display = "flex";
+            cartel.style.removeProperty("display");
+            cartel.style.display = "none";
+        }
+    })
+}
+
+function mostrarCartel(){
+    cuadricula.style.removeProperty("display");
+    cuadricula.style.display = "none";
+    crearCartel();
+
+    reiniciarJuego();
+}
+
 function palabraEncontrada(filaActual, palabraActual) {
     let letrasCorrectas = 0;
 
@@ -162,7 +211,7 @@ function palabraEncontrada(filaActual, palabraActual) {
             input.classList.add("cuadrado-desactivado");
         });
 
-        alert("Bien Ahí");
+        mostrarCartel();
         return true;
     }
 
@@ -199,7 +248,6 @@ function habilitarFilas(){
         contador++;
     }
 }
-
 
 function botonConfirmar(){
     window.addEventListener("keydown", (e) => {
