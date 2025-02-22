@@ -6,6 +6,8 @@ let palabraAleatoria = PALABRAS[generarNumeroAleatorio(0,PALABRAS.length - 1)];
 let ultimoInputActivo = null;
 let botonContinuar = null;
 let cartel = null; 
+let puntosSumados = 0;
+let puntosTotales = 0;
 
 function generarNumeroAleatorio (min , max){
     min = Math.ceil(min);
@@ -116,10 +118,8 @@ document.querySelectorAll(".cuadrado").forEach((cuadrado) => {
 
 function verificarLetras(filaActual, palabraActual) {
     const botonesTeclado = document.querySelectorAll(".botones");
-    console.log(botonesTeclado[0].textContent);
 
     filaActual.forEach((letra, indice) => {
-        console.log(letra.value);
         
         if(letra.value === palabraActual[indice]) {
             filaActual[indice].classList.add("cuadrado-verde");
@@ -162,7 +162,7 @@ function crearCartel(){
 
    const contenedorPuntaje = document.createElement("div");
    const puntajeActual = document.createElement("h3");
-   puntajeActual.textContent = "+ X puntos";
+   puntajeActual.textContent = `+ ${puntosSumados} puntos`;
    contenedorPuntaje.appendChild(puntajeActual);
    cartel.appendChild(contenedorPuntaje);
 
@@ -211,9 +211,32 @@ function palabraEncontrada(filaActual, palabraActual) {
             input.classList.add("cuadrado-desactivado");
         });
 
-        mostrarCartel();
-        return true;
-    }
+        switch (filasDeCuadricula[contador].id) {
+            case "primera-fila":
+                puntosSumados = 60;
+                break;
+            case "segunda-fila":
+                puntosSumados = 50;
+                break;
+            case "tercera-fila":
+                puntosSumados = 40;
+                break;
+            case "cuarta-fila":
+                puntosSumados = 30;
+                break;
+            case "quinta-fila":
+                puntosSumados = 20;
+                break;
+            case "sexta-fila":
+                puntosSumados = 10;
+                break;  
+            default:
+                break;
+            }
+
+            mostrarCartel(); //Recibir parametro para poder diferenciar cuando se adivino la palabra y cuando NO, asi poder mostrar el cartel indicando cual era la palabra
+            return true;
+        }
 
     return false;
 }
@@ -223,14 +246,12 @@ function habilitarFilas(){
     let filaSiguiente = null;
     let palabraActual = Array.from(palabraAleatoria);
     
-    console.log(filaActual);
     let palabraEsCorrecta = palabraEncontrada(filaActual, palabraActual);
 
     if(filaActual.length === filaActual.filter((elem) => elem.value != "").length){
         filaActual.forEach((input) => {
             input.setAttribute("readonly", "true"); 
             input.classList.add("cuadrado-desactivado");
-
             verificarLetras(filaActual, palabraActual);
         })
     
@@ -252,7 +273,8 @@ function habilitarFilas(){
 function botonConfirmar(){
     window.addEventListener("keydown", (e) => {
         if(e.key === "Enter"){
-    
+            let idFilas = filasDeCuadricula[contador].id;
+
             if(filasDeCuadricula[contador]){
                 habilitarFilas();
             }
