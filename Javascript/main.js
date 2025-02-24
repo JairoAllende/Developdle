@@ -185,6 +185,13 @@ function reiniciarJuego(){
             cartel.style.removeProperty("display");
             cartel.style.display = "none";
         }
+
+        document.querySelectorAll(".cuadrado").forEach((e) => {
+            console.log(e);
+            e.classList.remove("cuadrado-verde", "cuadrado-amarillo", "cuadrado-gris","cuadrado-desactivado");
+            e.value = "";
+            e.removeAttribute("readonly");
+        }) //// 
     })
 }
 
@@ -273,8 +280,6 @@ function habilitarFilas(){
 function botonConfirmar(){
     window.addEventListener("keydown", (e) => {
         if(e.key === "Enter"){
-            let idFilas = filasDeCuadricula[contador].id;
-
             if(filasDeCuadricula[contador]){
                 habilitarFilas();
             }
