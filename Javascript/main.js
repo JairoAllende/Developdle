@@ -315,17 +315,18 @@ function iniciarJuego(){
             }
     
             document.querySelectorAll(".cuadrado").forEach((e) => {
-                console.log(e);
                 e.classList.remove("cuadrado-verde", "cuadrado-amarillo", "cuadrado-gris","cuadrado-desactivado");
                 e.value = "";
                 e.removeAttribute("readonly");
                 e.classList.add("cuadrado");
             }) 
 
+            document.querySelectorAll(".botones").forEach((e) =>{
+                e.classList.remove("cuadrado-verde", "cuadrado-amarillo", "cuadrado-gris","cuadrado-desactivado");
+            })
+
             iniciarJuego();
         })
-        
-        
     }
     
     function mostrarCartel(gano = true){
@@ -342,4 +343,6 @@ function iniciarJuego(){
 
 iniciarJuego();
 
-// en iniciar juego tengo que retonar los cuadradros para que "cambiarCuadrado() reciba como parametros los cuadrados creados y pueda seguir funcionanado"
+//1- Eliminar las palabras que son descubiertas
+//2- acomodar las vista para el responsive
+//3- Probar errores
