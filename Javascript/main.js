@@ -3,7 +3,7 @@ const CUADRICULA = document.getElementById("cuadricula");
 const FILASDECUADRICULA = Array.from(CUADRICULA.children);
 let ultimoInputActivo = null;
 let botonContinuar = null;
-let cartel = null;
+let cartel = document.createElement("div");
 let puntosSumados = 0;
 let puntosTotales = 0;
 
@@ -14,6 +14,8 @@ function generarNumeroAleatorio (min , max){
 }
 
 function iniciarJuego(){
+    console.log(PALABRAS);
+    cartel.innerHTML = "";
     let palabraAleatoria = PALABRAS[generarNumeroAleatorio(0,PALABRAS.length - 1)];
     let contador = 0;
 
@@ -134,7 +136,13 @@ function iniciarJuego(){
                 input.setAttribute("readonly", "true");
                 input.classList.add("cuadrado-desactivado");
             });
-    
+            
+            let indiceDePalabra = PALABRAS.indexOf(palabraAleatoria);
+            console.log(palabraAleatoria);
+            if(indiceDePalabra !== -1){
+                PALABRAS.splice(indiceDePalabra,1);
+            } // Logica para eliminar la palabra del array
+
             switch (FILASDECUADRICULA[contador].id) {
                 case "primera-fila":
                     puntosSumados = 60;
@@ -276,7 +284,6 @@ function iniciarJuego(){
     }
     
     function crearCartel(gano){
-       cartel = document.createElement("div");
        cartel.classList.add("cartel");
     
        const contenedorMensaje = document.createElement("div");
@@ -310,8 +317,7 @@ function iniciarJuego(){
         botonContinuar.addEventListener("click", (e)=>{
             if(e.target){
                 CUADRICULA.style.display = "flex";
-                cartel.style.removeProperty("display");
-                cartel.style.display = "none";
+                cartel.remove();
             }
     
             document.querySelectorAll(".cuadrado").forEach((e) => {
