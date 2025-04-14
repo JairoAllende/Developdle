@@ -1,6 +1,7 @@
 const PALABRAS = ["HTML", "CSS", "JAVASCRIPT", "JAVA", "REACT"];
 const CUADRICULA = document.getElementById("cuadricula");
 const FILASDECUADRICULA = Array.from(CUADRICULA.children);
+let palabraAleatoria = "";
 let ultimoInputActivo = null;
 let botonContinuar = null;
 let cartel = document.createElement("div");
@@ -15,7 +16,7 @@ function generarNumeroAleatorio (min , max){
 
 function iniciarJuego(){
     console.log(PALABRAS);
-    let palabraAleatoria = PALABRAS[generarNumeroAleatorio(0,PALABRAS.length - 1)];
+    palabraAleatoria = PALABRAS[generarNumeroAleatorio(0,PALABRAS.length - 1)];
     let contador = 0;
 
     function crearCuadrados(fila){
@@ -137,7 +138,6 @@ function iniciarJuego(){
             });
             
             let indiceDePalabra = PALABRAS.indexOf(palabraAleatoria);
-            console.log(palabraAleatoria);
             if(indiceDePalabra !== -1){
                 PALABRAS.splice(indiceDePalabra,1);
             } // Logica para eliminar la palabra del array
@@ -179,6 +179,8 @@ function iniciarJuego(){
     }
 
     function verificarLetras(filaActual, palabraActual) {
+        console.log("Verificando contra:", palabraActual.join(""));
+
         const BOTONESTECLADO = document.querySelectorAll(".botones");
         
         filaActual.forEach((letra, indice) => {
@@ -217,11 +219,11 @@ function iniciarJuego(){
 
         if(!palabraEsCorrecta && contador === 5){
             puntosSumados = 0;
-            mostrarCartel("perdio")
+            mostrarCartel("perdio");
         }else if(PALABRAS.length === 0){
             crearCartel("completo");
-        }
-    
+        } 
+            
         if(filaActual.length === filaActual.filter((elem) => elem.value != "").length){
             filaActual.forEach((input) => {
                 input.setAttribute("readonly", "true"); 
@@ -292,29 +294,29 @@ function iniciarJuego(){
         const mensaje = document.createElement("h3");
         contenedorMensaje.appendChild(mensaje);
         switch(resultado){
-         case "gano":
-             mensaje.textContent = "Capo!";
-             break;
-         case "perdio":
-             mensaje.textContent = "Volvelo a intentar";
-             break;
-         case "completo":
-             mensaje.textContent = "Felicitaciones, ganaste!";
-             break;
+        case "gano":
+            mensaje.textContent = "Capo!";
+            break;
+        case "perdio":
+            mensaje.textContent = "Volvelo a intentar";
+            break;
+        case "completo":
+            mensaje.textContent = "Felicitaciones, ganaste!";
+            break;
         }
         cartel.appendChild(contenedorMensaje);
         
         let emote;
         switch(resultado){
-         case "gano":
-             emote = document.createTextNode("😎");
-             break;
-         case "perdio":
-             emote = document.createTextNode("😅");
-             break;
-         case "completo":
-             emote = document.createTextNode("💯");
-             break;
+        case "gano":
+            emote = document.createTextNode("😎");
+            break;
+        case "perdio":
+            emote = document.createTextNode("😅");
+            break;
+        case "completo":
+            emote = document.createTextNode("💯");
+            break;
         }
         contenedorMensaje.appendChild(emote);
        
@@ -330,13 +332,21 @@ function iniciarJuego(){
         
         botonContinuar = document.createElement("button");
         botonContinuar.classList.add("boton-cartel");
-        botonContinuar.textContent = "Continuar";
+        switch(resultado){
+        case "gano":
+            botonContinuar.textContent = "Continuar";
+            break;
+        case "perdio":
+            botonContinuar.textContent = "Reintentar palabra";
+            break;
+        case "completo":
+            botonContinuar.textContent = "Reiniciar juego";
+            break;
+        }
         cartel.appendChild(botonContinuar);
         
-        document.body.appendChild(cartel); 
-    }
-    
-    function continuarJuego(){
+        document.body.appendChild(cartel);
+
         botonContinuar.addEventListener("click", (e)=>{
             if(e.target){
                 CUADRICULA.style.display = "flex";
@@ -354,6 +364,12 @@ function iniciarJuego(){
                 e.classList.remove("cuadrado-verde", "cuadrado-amarillo", "cuadrado-gris","cuadrado-desactivado");
             })
 
+            if(botonContinuar.innerHTML === "Reiniciar juego"){
+                PALABRAS.push("HTML", "CSS", "JAVASCRIPT", "JAVA", "REACT");
+                puntosSumados = 0;
+                puntosTotales = 0;
+            }
+
             iniciarJuego();
         })
     }
@@ -362,8 +378,6 @@ function iniciarJuego(){
         CUADRICULA.style.removeProperty("display");
         CUADRICULA.style.display = "none";
         crearCartel(resultado);
-    
-        continuarJuego();
     }
     
     manejarTecladoVirtual();
@@ -372,4 +386,5 @@ function iniciarJuego(){
 
 iniciarJuego();
 
-//En el caso de adivinar todas las palabras, que termine el juego.
+//Cuando adivina todas las palabras dar la opcion de reiniciar de 0
+//Arreglar el problema de los colores de los cuadrados, cuando se pintan de verde, en el segundo intento se pintan de gris a pesar de que ya se haboian adi
