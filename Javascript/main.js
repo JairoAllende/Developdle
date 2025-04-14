@@ -15,7 +15,6 @@ function generarNumeroAleatorio (min , max){
 
 function iniciarJuego(){
     console.log(PALABRAS);
-    cartel.innerHTML = "";
     let palabraAleatoria = PALABRAS[generarNumeroAleatorio(0,PALABRAS.length - 1)];
     let contador = 0;
 
@@ -171,7 +170,7 @@ function iniciarJuego(){
                 default:
                     break;
                 }
-                mostrarCartel();
+                mostrarCartel("gano");
                 contador = 0;
                 return true;
             }
@@ -218,7 +217,9 @@ function iniciarJuego(){
 
         if(!palabraEsCorrecta && contador === 5){
             puntosSumados = 0;
-            mostrarCartel(false)
+            mostrarCartel("perdio")
+        }else if(PALABRAS.length === 0){
+            crearCartel("completo");
         }
     
         if(filaActual.length === filaActual.filter((elem) => elem.value != "").length){
@@ -283,34 +284,56 @@ function iniciarJuego(){
         })
     }
     
-    function crearCartel(gano){
-       cartel.classList.add("cartel");
+    function crearCartel(resultado){
+        cartel.innerHTML = "";
+        cartel.classList.add("cartel");
     
-       const contenedorMensaje = document.createElement("div");
-       const mensaje = document.createElement("h3");
-       contenedorMensaje.appendChild(mensaje);
-       mensaje.textContent = gano? "Capo!" : "Volvelo a intentar";
-       cartel.appendChild(contenedorMensaje);
+        const contenedorMensaje = document.createElement("div");
+        const mensaje = document.createElement("h3");
+        contenedorMensaje.appendChild(mensaje);
+        switch(resultado){
+         case "gano":
+             mensaje.textContent = "Capo!";
+             break;
+         case "perdio":
+             mensaje.textContent = "Volvelo a intentar";
+             break;
+         case "completo":
+             mensaje.textContent = "Felicitaciones, ganaste!";
+             break;
+        }
+        cartel.appendChild(contenedorMensaje);
+        
+        let emote;
+        switch(resultado){
+         case "gano":
+             emote = document.createTextNode("😎");
+             break;
+         case "perdio":
+             emote = document.createTextNode("😅");
+             break;
+         case "completo":
+             emote = document.createTextNode("💯");
+             break;
+        }
+        contenedorMensaje.appendChild(emote);
+       
+        const contenedorPuntaje = document.createElement("div");
+        const puntajeActual = document.createElement("h3");
+        puntajeActual.textContent = `+ ${puntosSumados} puntos`;
+        contenedorPuntaje.appendChild(puntajeActual);
+        cartel.appendChild(contenedorPuntaje);
     
-       const emote = document.createTextNode(gano ? "😎" : "😅");
-       contenedorMensaje.appendChild(emote);
-    
-       const contenedorPuntaje = document.createElement("div");
-       const puntajeActual = document.createElement("h3");
-       puntajeActual.textContent = `+ ${puntosSumados} puntos`;
-       contenedorPuntaje.appendChild(puntajeActual);
-       cartel.appendChild(contenedorPuntaje);
-    
-       const puntajeTotal = document.createElement("h3");
-       puntajeTotal.textContent = `Puntaje total: ${puntosTotales}`;
-       contenedorPuntaje.appendChild(puntajeTotal);
-    
-       botonContinuar = document.createElement("button");
-       botonContinuar.classList.add("boton-cartel");
-       botonContinuar.textContent = "Continuar";
-       cartel.appendChild(botonContinuar);
-    
-       document.body.appendChild(cartel); 
+        const puntajeTotal = document.createElement("h3");
+        puntajeTotal.textContent = `Puntaje total: ${puntosTotales}`;
+        contenedorPuntaje.appendChild(puntajeTotal);
+        
+        botonContinuar = document.createElement("button");
+        botonContinuar.classList.add("boton-cartel");
+        botonContinuar.textContent = "Continuar";
+        cartel.appendChild(botonContinuar);
+        
+        document.body.appendChild(cartel); 
     }
     
     function continuarJuego(){
@@ -335,10 +358,10 @@ function iniciarJuego(){
         })
     }
     
-    function mostrarCartel(gano = true){
+    function mostrarCartel(resultado){
         CUADRICULA.style.removeProperty("display");
         CUADRICULA.style.display = "none";
-        crearCartel(gano);
+        crearCartel(resultado);
     
         continuarJuego();
     }
@@ -349,6 +372,4 @@ function iniciarJuego(){
 
 iniciarJuego();
 
-//1- Eliminar las palabras que son descubiertas
-//2- acomodar las vista para el responsive
-//3- Probar errores
+//En el caso de adivinar todas las palabras, que termine el juego.
