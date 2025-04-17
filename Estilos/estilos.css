@@ -149,6 +149,22 @@ h1{
     color: rgba(102, 51, 153);
 }
 
+.contenedor-logo-redes{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.logo-redes{
+    width: 9em;
+    height: 5em;
+    transition: 0.5s;
+}
+
+.logo-redes:hover{
+    transition: 0.5s;
+    transform: translateY(-5px);
+}
+
 @media (width < 590px){
     .cuadrado{
         width: 3em;

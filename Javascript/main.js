@@ -1,4 +1,4 @@
-const PALABRAS = ["HTML", "CSS", "JAVASCRIPT", "JAVA", "REACT"];
+const PALABRAS = ["HTML","CSS","JAVA","REACT","JAVASCRIPT"];
 const CUADRICULA = document.getElementById("cuadricula");
 const FILASDECUADRICULA = Array.from(CUADRICULA.children);
 let palabraAleatoria = "";
@@ -140,7 +140,7 @@ function iniciarJuego(){
             let indiceDePalabra = PALABRAS.indexOf(palabraAleatoria);
             if(indiceDePalabra !== -1){
                 PALABRAS.splice(indiceDePalabra,1);
-            } // Logica para eliminar la palabra del array
+            }
 
             switch (FILASDECUADRICULA[contador].id) {
                 case "primera-fila":
@@ -341,6 +341,7 @@ function iniciarJuego(){
             break;
         case "completo":
             botonContinuar.textContent = "Reiniciar juego";
+            juegoTerminado();
             break;
         }
         cartel.appendChild(botonContinuar);
@@ -373,6 +374,73 @@ function iniciarJuego(){
             iniciarJuego();
         })
     }
+
+    function juegoTerminado (){
+        let botonTerminarJuego = document.createElement("h3");
+        botonTerminarJuego.innerHTML = "Terminar Juego";
+        botonTerminarJuego.classList.add("boton-cartel");
+        cartel.appendChild(botonTerminarJuego);
+        botonTerminarJuego.addEventListener("click", e => {
+            if(e.target){
+                cartel.remove();
+                let cartelTerminarJuego = document.createElement("div");
+                cartelTerminarJuego.classList.add("cartel");
+                let felicitaciones = document.createElement("h2");
+                felicitaciones.innerHTML = "Felicitaciones!<br><br>Descubriste todas las palabras!";
+                let divRedes = document.createElement("div");
+                divRedes.classList.add("contenedor-logo-redes");
+        
+                let divInstagram = document.createElement("div");        
+                let enlaceInstagram = document.createElement("a");
+                enlaceInstagram.href = "https://www.instagram.com/jaiiiroa/";
+                enlaceInstagram.target = "_blank";
+
+                let logoInstagram = document.createElement("img");
+                logoInstagram.classList.add("logo-redes")
+                logoInstagram.src = "./Estilos/assets/logoInstagram.png";
+                logoInstagram.alt = "Instagram";
+
+                let divGithub = document.createElement("div");
+                let enlaceGithub = document.createElement("a");
+                enlaceGithub.href = "https://github.com/JairoAllende?tab=repositories&q=&type=public&language=&sort=";
+                enlaceGithub.target = "_blank";
+
+                let logoGithub = document.createElement("img");
+                logoGithub.classList.add("logo-redes")
+                logoGithub.src = "./Estilos/assets/logoGitHub.png";
+                logoGithub.alt = "GitHub";
+
+                let divLinkedIn = document.createElement("div");  
+                let enlaceLinkedIn = document.createElement("a");
+                enlaceLinkedIn.href = "https://www.linkedin.com/in/jairo-allende-565542208/";
+                enlaceLinkedIn.target = "_blank";
+
+                let logoLinkedIn = document.createElement("img");
+                logoLinkedIn.classList.add("logo-redes")
+                logoLinkedIn.src = "./Estilos/assets/logoLinkedIn.png";
+                logoLinkedIn.alt = "LinkedIn";
+
+                enlaceInstagram.appendChild(logoInstagram);
+                enlaceGithub.appendChild(logoGithub);
+                enlaceLinkedIn.appendChild(logoLinkedIn);
+                
+                divRedes.appendChild(divInstagram);
+                divRedes.appendChild(divGithub);
+                divRedes.appendChild(divLinkedIn);
+                
+                divInstagram.appendChild(enlaceInstagram);
+                divGithub.appendChild(enlaceGithub);
+                divLinkedIn.appendChild(enlaceLinkedIn);
+
+                cartelTerminarJuego.appendChild(felicitaciones);
+                cartelTerminarJuego.appendChild(divRedes);
+                document.body.appendChild(cartelTerminarJuego);
+
+                const TECLADO = document.querySelector("#teclado");
+                TECLADO.remove();
+            }
+        })
+    }
     
     function mostrarCartel(resultado){
         CUADRICULA.style.removeProperty("display");
@@ -386,5 +454,5 @@ function iniciarJuego(){
 
 iniciarJuego();
 
-//Cuando adivina todas las palabras dar la opcion de reiniciar de 0
-//Arreglar el problema de los colores de los cuadrados, cuando se pintan de verde, en el segundo intento se pintan de gris a pesar de que ya se haboian adi
+//Dar opcion para terminar juego
+//Arreglar el responsive
