@@ -376,7 +376,7 @@ function iniciarJuego(){
     }
 
     function juegoTerminado (){
-        let botonTerminarJuego = document.createElement("h3");
+        let botonTerminarJuego = document.createElement("button");
         botonTerminarJuego.innerHTML = "Terminar Juego";
         botonTerminarJuego.classList.add("boton-cartel");
         cartel.appendChild(botonTerminarJuego);
@@ -454,5 +454,5 @@ function iniciarJuego(){
 
 iniciarJuego();
 
-//Dar opcion para terminar juego
 //Arreglar el responsive
+//Mejorar los carteles

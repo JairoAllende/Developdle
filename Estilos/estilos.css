@@ -166,6 +166,10 @@ h1{
 }
 
 @media (width < 590px){
+    body{
+        padding-bottom: 2em;
+    }
+
     .cuadrado{
         width: 3em;
         height: 3em;
@@ -176,12 +180,16 @@ h1{
         width: 2em;
         height: 2.5em;
     }
+
+    .cartel{
+        width: 80%;
+    }
 }
 
 @media (width < 450px){
     .cuadrado{
-        width: 2.5em;
-        height: 2.5em;
+        width: 4em;
+        height: 4em;
         margin: 0.3em 0.2em;
     }
 
@@ -191,19 +199,20 @@ h1{
 }
 
 @media (width < 385px){
+
     #cuadricula{
         margin: none;
     }
 
     .cuadrado{
-        width: 1.9em;
-        height: 1.9em;
+        width: 3em;
+        height: 3em;
         margin: 0.3em 0.2em;
     }
     
     .botones{
-        width: 1.5em;
-        height: 2em;
+        width: 1.8em;
+        height: 2.5em;
     }
 }
 
