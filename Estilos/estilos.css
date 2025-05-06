@@ -159,6 +159,8 @@ h1{
     width: 9em;
     height: 5em;
     transition: 0.5s;
+    display: flex;
+    align-items: center;
 }
 
 .logo-redes:hover{
@@ -166,10 +168,26 @@ h1{
     transform: translateY(-5px);
 }
 
+@media (width < 1000px){
+    .boton-cartel{
+        width: 100%;
+    }
+
+    .contenedor-logo-redes{
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 @media (width < 600px){
     body{
         justify-content: space-evenly;
         height: 100dvh;
+    }
+
+    .mostrarH1{
+        position: relative;
+        bottom: 5em;
     }
     
     .cuadrado{
@@ -179,6 +197,11 @@ h1{
 
     #cuadricula{
         justify-content: center;
+    }
+
+    .cartel{
+        height: 60dvh;
+        width: 95%;
     }
 
     .botones{

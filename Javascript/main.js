@@ -1,4 +1,4 @@
-const PALABRAS = ["HTML","CSS","JAVA","REACT","JAVASCRIPT"];
+const PALABRAS = ["HTML"];
 const CUADRICULA = document.getElementById("cuadricula");
 const FILASDECUADRICULA = Array.from(CUADRICULA.children);
 let palabraAleatoria = "";
@@ -349,6 +349,8 @@ function iniciarJuego(){
         document.body.appendChild(cartel);
 
         botonContinuar.addEventListener("click", (e)=>{
+            document.getElementById("titulo").classList.remove("mostrarH1");
+
             if(e.target){
                 CUADRICULA.style.display = "flex";
                 cartel.remove();
@@ -396,9 +398,12 @@ function iniciarJuego(){
                 enlaceInstagram.target = "_blank";
 
                 let logoInstagram = document.createElement("img");
-                logoInstagram.classList.add("logo-redes")
+                logoInstagram.classList.add("logo-redes");
                 logoInstagram.src = "./Estilos/assets/logoInstagram.png";
                 logoInstagram.alt = "Instagram";
+                logoInstagram.style.position = "relative";
+                logoInstagram.style.left = "40px";
+
 
                 let divGithub = document.createElement("div");
                 let enlaceGithub = document.createElement("a");
@@ -419,6 +424,8 @@ function iniciarJuego(){
                 logoLinkedIn.classList.add("logo-redes")
                 logoLinkedIn.src = "./Estilos/assets/logoLinkedIn.png";
                 logoLinkedIn.alt = "LinkedIn";
+                logoLinkedIn.style.position = "relative";
+                logoLinkedIn.style.right = "40px";
 
                 enlaceInstagram.appendChild(logoInstagram);
                 enlaceGithub.appendChild(logoGithub);
@@ -446,6 +453,7 @@ function iniciarJuego(){
         CUADRICULA.style.removeProperty("display");
         CUADRICULA.style.display = "none";
         crearCartel(resultado);
+        document.getElementById("titulo").classList.add("mostrarH1");
     }
     
     manejarTecladoVirtual();
