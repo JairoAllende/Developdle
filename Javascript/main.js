@@ -1,4 +1,4 @@
-const PALABRAS = ["HTML"];
+const PALABRAS = ["HTML", "CSS", "JAVASCRIPT", "REACT", "JAVA", "ANGULAR", "SQL"];
 const CUADRICULA = document.getElementById("cuadricula");
 const FILASDECUADRICULA = Array.from(CUADRICULA.children);
 let palabraAleatoria = "";
