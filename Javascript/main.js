@@ -15,7 +15,6 @@ function generarNumeroAleatorio (min , max){
 }
 
 function iniciarJuego(){
-    console.log(PALABRAS);
     palabraAleatoria = PALABRAS[generarNumeroAleatorio(0,PALABRAS.length - 1)];
     let contador = 0;
 
@@ -461,6 +460,3 @@ function iniciarJuego(){
 }
 
 iniciarJuego();
-
-//Arreglar el responsive
-//Mejorar los carteles
